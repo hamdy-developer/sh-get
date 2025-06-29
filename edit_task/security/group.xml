@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="id_task_management_groups" model="res.groups">
+            <field name="name">Task Management</field>
+        </record>
+
+
+
+    </data>
+</odoo>

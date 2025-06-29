@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="id_evaluation_report" model="ir.actions.report">
+            <field name="name">Evaluation Report</field>
+            <field name="model">evaluation.report</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">edit_task.evaluation_report_template</field>
+            <field name="report_file">Evaluation Report</field>
+            <field name="print_report_name">'Evaluation Report'</field>
+            <field name="binding_model_id" ref="edit_task.model_evaluation_report"/>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="id_view_sale_project_inh_form" model="ir.ui.view">
+            <field name="name">project.task.view.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Evaluation" groups="edit_task.id_task_management_groups">
+                        <group>
+                            <group string="implementer">
+                                <field name="task_solution" widget="priority"/>
+                            </group>
+                            <group string="developer">
+                                <field name="knowledge_ids" widget="many2many_tags"/>
+                                <field name="speed" widget="priority"/>
+                                <field name="code_clean" widget="priority"/>
+                                <field name="thought" widget="priority"/>
+                                <field name="is_evaluation"/>
+                            </group>
+
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="evaluation_report_form_view" model="ir.ui.view">
+            <field name="name">Evaluation Report</field>
+            <field name="model">evaluation.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="user_id" invisible="coupler == True" required="coupler != True"/>
+                            <field name="user_ids" widget="many2many_tags" invisible="coupler != True" required="coupler == True" />
+                        </group>
+                        <group>
+                            <field name="end_date"/>
+                            <field name="coupler"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page invisible="coupler == True" string="Evaluation">
+                            <group>
+                                <field name="number_of_tasks" readonly="1"/>
+                                <field name="work_hours" readonly="1"/>
+                                <field name="speed" widget="priority" readonly="1"/>
+                                <field name="code_clean" widget="priority" readonly="1"/>
+                                <field name="thought" widget="priority" readonly="1"/>
+                                <field name="knowledge_ids" widget="many2many_tags" readonly="1"/>
+                            </group>
+                        </page>
+                        <page invisible="coupler != True" string="Evaluation">
+                            <field name="evaluation_report_ids" readonly="1">
+                                <tree>
+                                    <field name="start_date" invisible="1"/>
+                                    <field name="end_date" invisible="1"/>
+                                    <field name="user_id"/>
+                                    <field name="number_of_tasks" readonly="1"/>
+                                    <field name="work_hours" readonly="1"/>
+                                    <field name="speed" widget="priority" readonly="1"/>
+                                    <field name="code_clean" widget="priority" readonly="1"/>
+                                    <field name="thought" widget="priority" readonly="1"/>
+                                    <field name="knowledge_ids" widget="many2many_tags" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+                    <footer>
+                        <button name="action_Print" string="Print" type="object" class="btn-primary"/>
+                        <button name="view_tasks" string="View Tasks" type="object" class="btn-primary"/>
+                        <button string="OK" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="evaluation_report_act" model="ir.actions.act_window">
+            <field name="name">Evaluation Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">evaluation.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="evaluation_report_menuitem" parent="project.menu_project_report" action="evaluation_report_act"
+                  groups="edit_task.id_task_management_groups"
+                  sequence="3"/>
+
+
+    </data>
+</odoo>
