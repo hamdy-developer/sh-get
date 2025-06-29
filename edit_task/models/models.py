@@ -14,8 +14,6 @@ class KnowledgeUsed(models.Model):
     name = fields.Char()
 
 
-
-
 class ProjectTaskInh(models.Model):
     _inherit = 'project.task'
 
