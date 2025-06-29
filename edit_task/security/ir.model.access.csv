@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+edit_task.access_knowledge_used,access_knowledge_used,edit_task.model_knowledge_used,base.group_user,1,1,1,1
+edit_task.access_evaluation_report,access_evaluation_report,edit_task.model_evaluation_report,base.group_user,1,1,1,1
